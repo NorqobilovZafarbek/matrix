@@ -1,4 +1,10 @@
-void main() {}
+
+import 'dart:collection';
+
+void main() {
+  final s = Solution239();
+  print(s.maxSlidingWindow([1,3,-1,-3,5,3,6,7],3));
+}
 
 
 // ========= 146 
@@ -36,7 +42,7 @@ class LRUCache {
 
 // 49 
 
-class Solution {
+class Solution49 {
   List<List<String>> groupAnagrams(List<String> strs) {
     final Map<String, List<String>> map = {};
 
@@ -59,7 +65,7 @@ class Solution {
 
 // ==== 42
 
-class Solution {
+class Solution42 {
   int trap(List<int> height) {
     int left = 0;
     int right = height.length - 1;
@@ -95,3 +101,29 @@ class Solution {
 
 // 239
 
+class Solution {
+  List<int> maxSlidingWindow(List<int> nums, int k) {
+    final result = <int>[];
+
+    final deque = <int>[];  
+    int front = 0;  
+
+    for (int i = 0; i < nums.length; i++) {
+      if (front < deque.length && deque[front] <= i - k) {
+        front++;
+      }
+
+      while (front < deque.length && nums[deque.last] < nums[i]) {
+        deque.removeLast();
+      }
+
+      deque.add(i);
+
+      if (i >= k - 1) {
+        result.add(nums[deque[front]]);
+      }
+    }
+
+    return result;
+  }
+}
